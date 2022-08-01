@@ -1,0 +1,24 @@
+<article class="mb-8">
+    <div class="row">
+        <div class="col-md-5">
+            {% if restaurant.featuredImage %}
+                <a href="{{ path('restaurant_show', {'slug': restaurant.slug }) }}">
+                    <img src="/uploads/{{restaurant.featuredImage.filename}}" alt="{{restaurant.featuredImage.altText}}" loading="lazy" width="350" height="205">
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-md-7">
+            <h2>
+                <a class="text-decoration-none" href="{{ path('restaurant_show', {'slug': restaurant.slug }) }}">
+                    {{restaurant.name}}
+                </a>
+            </h2>
+            <p>
+                {{restaurant.createdAt|date("d/m/Y")}}<br>
+                {{restaurant.address}}
+            </p>
+            {{restaurant.featuredText}}
+        </div>
+        
+    </div>
+</article>

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}restaurant{% endblock %}
+
+{% block pageTitle %}
+    <h2>{{restaurant.name}}</h2>
+{% endblock pageTitle %} 
+
+{% block body %}
+    <div class="m-5">
+        <p>
+            Heure d'ouverture: {{restaurant.openingTime | format_time() }}<br>
+            Heure de fermeture: {{restaurant.closureTime | format_time() }}<br>
+            Adresse: {{restaurant.address}}
+            zipcode: {{restaurant.zipcode}}
+        </p>
+        {{restaurant.description | raw}}
+    </div>
+{% endblock %}
+
+

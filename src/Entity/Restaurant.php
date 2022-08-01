@@ -20,6 +20,12 @@ class Restaurant implements TimestampedInterface
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $featuredText = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -45,14 +51,14 @@ class Restaurant implements TimestampedInterface
     #[ORM\JoinColumn(nullable: true)]
     private ?Region $region = null;
 
-    #[ORM\ManyToMany(targetEntity: Media::class, mappedBy: 'restaurants')]
-    private Collection $medias;
-
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Commentaire::class, orphanRemoval: true)]
     private Collection $commentaires;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'restaurants')]
     private Collection $categories;
+
+    #[ORM\ManyToOne]
+    private ?Media $featuredImage = null;
 
     public function __construct()
     {
@@ -74,6 +80,18 @@ class Restaurant implements TimestampedInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -173,34 +191,6 @@ class Restaurant implements TimestampedInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): self
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias->add($media);
-            $media->addRestaurant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self
-    {
-        if ($this->medias->removeElement($media)) {
-            $media->removeRestaurant($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Commentaire>
      */
@@ -254,6 +244,30 @@ class Restaurant implements TimestampedInterface
         if ($this->categories->removeElement($category)) {
             $category->removeRestaurant($this);
         }
+
+        return $this;
+    }
+
+    public function getFeaturedImage(): ?Media
+    {
+        return $this->featuredImage;
+    }
+
+    public function setFeaturedImage(?Media $featuredImage): self
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    public function getFeaturedText(): ?string
+    {
+        return $this->featuredText;
+    }
+
+    public function setFeaturedText(?string $featuredText): self
+    {
+        $this->featuredText = $featuredText;
 
         return $this;
     }
