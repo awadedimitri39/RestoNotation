@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}category{% endblock %}
+
+{% block pageTitle %}
+    {{category.name}}
+{% endblock pageTitle %}
+
+{% block body %}
+    <main class="container">
+        <div class="row g-5">
+            <div class="col">
+                <div class="restaurant-list">
+                    {% include "restaurant/list.html.twig" with {restaurants : category.restaurants } %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

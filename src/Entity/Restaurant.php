@@ -54,7 +54,7 @@ class Restaurant implements TimestampedInterface
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Commentaire::class, orphanRemoval: true)]
     private Collection $commentaires;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'restaurants')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'restaurants')]
     private Collection $categories;
 
     #[ORM\ManyToOne]

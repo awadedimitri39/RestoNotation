@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block pageTitle %}
+<h2>Restaurants</h2>   
+{% endblock pageTitle %}
+
+{% block title %}
+    restaurant
+{% endblock title %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="restaurant-list">
+                {% include "restaurant/list.html.twig" with { restaurants } %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}

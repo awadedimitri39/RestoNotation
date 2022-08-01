@@ -22,8 +22,14 @@ class Category
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Restaurant::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Restaurant::class, mappedBy: 'categories')]
     private Collection $restaurants;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $color = null;
 
     public function __construct()
     {
@@ -81,5 +87,34 @@ class Category
         $this->restaurants->removeElement($restaurant);
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
